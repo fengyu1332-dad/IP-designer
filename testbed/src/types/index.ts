@@ -1,61 +1,42 @@
-export interface Theme {
+export interface ThemeOption {
+  value: string;
+  label: string;
+}
+
+export interface ThemeCategory {
   id: string;
   name: string;
   description: string;
-  primaryColor: string;
-  secondaryColor: string;
-  accentColor: string;
-  backgroundColor: string;
-  textColor: string;
-  mood: string;
-  weather: string;
-  icon: string;
-}
-
-export interface WeatherOption {
-  value: string;
-  label: string;
-  icon: string;
-}
-
-export interface MoodOption {
-  value: string;
-  label: string;
-  icon: string;
+  subThemes: string[];
 }
 
 export interface LLMResponse {
   success: boolean;
   data?: {
-    poem: string;
-    imagePrompt: string;
-    style: string;
-    colorPalette: string[];
+    quote: string;
+    image_prompt: string;
   };
   error?: string;
 }
 
 export interface AppState {
-  currentTheme: Theme | null;
-  selectedWeather: string;
-  selectedMood: string;
-  generatedPoem: string;
-  generatedImageUrl: string;
-  isGenerating: boolean;
+  weather: string | null;
+  mood: string | null;
+  primaryTheme: string | null;
+  secondaryTheme: string | null;
+  quote: string | null;
+  imagePrompt: string | null;
+  isLoading: boolean;
   error: string | null;
-  history: GenerationHistory[];
 }
 
 export interface GenerationHistory {
   id: string;
-  poem: string;
-  imageUrl: string;
-  theme: Theme;
-  timestamp: Date;
-}
-
-export interface PromptConfig {
+  quote: string;
+  imagePrompt: string;
   weather: string;
   mood: string;
-  style: string;
+  primaryTheme: string;
+  secondaryTheme: string;
+  timestamp: Date;
 }
