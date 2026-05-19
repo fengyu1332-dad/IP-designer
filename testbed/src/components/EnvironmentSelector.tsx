@@ -1,4 +1,5 @@
 import { WEATHER_OPTIONS, MOOD_OPTIONS } from '../constants/themes';
+import { CustomInput } from './CustomInput';
 
 interface EnvironmentSelectorProps {
   weather: string | null;
@@ -45,6 +46,12 @@ export function EnvironmentSelector({
               </button>
             ))}
           </div>
+          <CustomInput
+            placeholder="输入自定义天气描述，如：夕阳余晖、雷电交加..."
+            value={weather}
+            onChange={onWeatherChange}
+            icon="☀️"
+          />
         </div>
 
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-slate-200/50 card-hover">
@@ -69,6 +76,12 @@ export function EnvironmentSelector({
               </button>
             ))}
           </div>
+          <CustomInput
+            placeholder="输入自定义情绪描述，如：兴奋期待、淡淡忧伤..."
+            value={mood}
+            onChange={onMoodChange}
+            icon="💭"
+          />
         </div>
       </div>
     </section>

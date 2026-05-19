@@ -1,4 +1,5 @@
 import { IMAGE_STYLE_OPTIONS } from '../constants/themes';
+import { CustomInput } from './CustomInput';
 
 interface ImageStyleSelectorProps {
   imageStyle: string | null;
@@ -37,6 +38,12 @@ export function ImageStyleSelector({ imageStyle, onChange }: ImageStyleSelectorP
             </button>
           ))}
         </div>
+        <CustomInput
+          placeholder="输入自定义风格描述，如：赛博朋克风格、国风水墨..."
+          value={imageStyle}
+          onChange={onChange}
+          icon="🎨"
+        />
       </div>
     </section>
   );

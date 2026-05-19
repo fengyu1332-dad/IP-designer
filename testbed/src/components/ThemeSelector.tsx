@@ -1,4 +1,5 @@
 import { THEME_CATEGORIES } from '../constants/themes';
+import { CustomInput } from './CustomInput';
 
 interface ThemeSelectorProps {
   primaryTheme: string | null;
@@ -32,8 +33,10 @@ export function ThemeSelector({
             <button
               key={category.id}
               onClick={() => {
-                onPrimaryThemeChange(category.name);
-                onSecondaryThemeChange('');
+                if (primaryTheme !== category.name) {
+                  onPrimaryThemeChange(category.name);
+                  onSecondaryThemeChange('');
+                }
               }}
               className={`tag px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                 primaryTheme === category.name
@@ -73,6 +76,12 @@ export function ThemeSelector({
                 </button>
               ))}
             </div>
+            <CustomInput
+              placeholder="输入自定义主题描述，如：深夜读书的宁静时光..."
+              value={secondaryTheme}
+              onChange={onSecondaryThemeChange}
+              icon="🎯"
+            />
           </div>
         )}
       </div>
