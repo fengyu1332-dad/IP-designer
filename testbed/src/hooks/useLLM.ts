@@ -17,6 +17,7 @@ export interface UseLLMResult extends UseLLMState {
     secondaryTheme: string;
     apiKey: string;
     apiBase?: string;
+    aspectRatio?: string;
   }) => Promise<void>;
   reset: () => void;
 }
@@ -35,6 +36,7 @@ export function useLLM(): UseLLMResult {
     secondaryTheme: string;
     apiKey: string;
     apiBase?: string;
+    aspectRatio?: string;
   }) => {
     setIsLoading(true);
     setError(null);

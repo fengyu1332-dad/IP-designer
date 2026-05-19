@@ -1,9 +1,10 @@
 interface HeaderProps {
   date: string;
   onSettingsClick: () => void;
+  onHistoryClick: () => void;
 }
 
-export function Header({ date, onSettingsClick }: HeaderProps) {
+export function Header({ date, onSettingsClick, onHistoryClick }: HeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-slate-200/50">
       <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -16,7 +17,16 @@ export function Header({ date, onSettingsClick }: HeaderProps) {
             <p className="text-xs text-slate-500">Prompt 自动化生成</p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onHistoryClick}
+            className="w-9 h-9 rounded-lg bg-white/60 hover:bg-indigo-50 flex items-center justify-center transition-colors border border-slate-200/50"
+            title="历史记录"
+          >
+            <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </button>
           <div className="text-sm text-slate-600 bg-white/60 px-3 py-1.5 rounded-lg border border-slate-200/50">
             <span className="mr-1">📅</span> {date}
           </div>

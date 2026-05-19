@@ -34,7 +34,9 @@ export function buildSystemPrompt(params: {
   mood: string;
   primaryTheme: string;
   secondaryTheme: string;
+  aspectRatio?: string;
 }): string {
+  const aspectRatio = params.aspectRatio || '3:4';
   return `# Role
 你是一个顶级的社交媒体内容总监与 AI 视觉提示词（Prompt）专家。
 
@@ -46,20 +48,21 @@ export function buildSystemPrompt(params: {
 - 天气/光影：${params.weather}
 - 当前情绪：${params.mood}
 - 核心主题：${params.primaryTheme} -> ${params.secondaryTheme}
+- 画面宽高比：${aspectRatio}
 
 # Workflow
 1. 分析输入参数，寻找环境、情绪与核心主题之间的内在联系与张力。
 2. 撰写中文金句：字数限制在 15-30 字。风格需深刻、克制、真实。如果是专业信念，需体现契约精神；如果是硬核爱好或教育规划，需体现探索与严谨；如果是人文关怀，需体现科技与人性的温度。
 3. 构建英文 Prompt：
    - 必须使用英文
-   - 结构需包含：主体描述（极度具体）、背景环境、光影设置（如 Cinematic lighting, volumetric light）、摄影机视角（如 50mm lens, depth of field）、画面风格（如 photorealistic, documentary style, minimalist）
+   - 结构需包含：主体描述（极度具体）、背景环境，光影设置（如 Cinematic lighting, volumetric light）、摄影机视角（如 50mm lens, depth of field）、画面风格（如 photorealistic, documentary style, minimalist）
    - 避免直接将中文金句翻译成英文，而是要描绘金句所传达的视觉意象
-   - 结尾默认加上宽高比参数，例如 --ar 3:4 或 --ar 16:9（根据主题自行判断最合适的比例）
+   - 结尾必须加上宽高比参数 --ar ${aspectRatio}
 
 # Output Format (Strict JSON)
 {
   "quote": "生成的中文金句",
-  "image_prompt": "生成的英文绘图 Prompt"
+  "image_prompt": "生成的英文绘图 Prompt（必须包含 --ar ${aspectRatio}）"
 }`;
 }
 
@@ -69,6 +72,7 @@ export function buildUserPrompt(params: {
   mood: string;
   primaryTheme: string;
   secondaryTheme: string;
+  aspectRatio?: string;
 }): string {
   let prompt = `日期/节气：${params.date}\n`;
   prompt += `天气/光影：${params.weather}\n`;
