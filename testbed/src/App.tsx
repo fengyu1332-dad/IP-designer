@@ -8,6 +8,7 @@ import { ApiKeyModal } from './components/ApiKeyModal';
 import { HistoryPanel } from './components/HistoryPanel';
 import { ToastContainer, useToast } from './components/Toast';
 import { AspectRatioSelector } from './components/AspectRatioSelector';
+import { ImagePreview } from './components/ImagePreview';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useLLM } from './hooks/useLLM';
 import { createHistoryItem } from './types';
@@ -158,6 +159,10 @@ function App() {
           onRegenerate={handleGenerate}
           onShare={handleShare}
         />
+
+        {quote && imagePrompt && (
+          <ImagePreview prompt={imagePrompt} aspectRatio={aspectRatio} />
+        )}
 
         {error && (
           <div className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg animate-fade-in">
