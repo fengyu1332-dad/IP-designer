@@ -42,14 +42,14 @@ export function ResultDisplay({ quote, imagePrompt, onRegenerate }: ResultDispla
   return (
     <section className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-sm font-medium shadow-lg">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-emerald-500/30">
           ✓
         </div>
         <h2 className="text-xl font-semibold text-slate-800">生成结果</h2>
       </div>
 
       <div className="space-y-6">
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-slate-200/50 card-hover">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
@@ -58,7 +58,7 @@ export function ResultDisplay({ quote, imagePrompt, onRegenerate }: ResultDispla
             </div>
             <button
               onClick={handleCopyQuote}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm text-slate-600 transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-100 text-sm text-slate-600 hover:text-indigo-600 transition-all duration-200"
             >
               {copied === 'quote' ? (
                 <>
@@ -82,7 +82,7 @@ export function ResultDisplay({ quote, imagePrompt, onRegenerate }: ResultDispla
           </blockquote>
         </div>
 
-        <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6">
+        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6 shadow-xl shadow-slate-900/20">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
@@ -91,7 +91,7 @@ export function ResultDisplay({ quote, imagePrompt, onRegenerate }: ResultDispla
             </div>
             <button
               onClick={handleCopyPrompt}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-sm text-slate-200 transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-indigo-600 text-sm text-slate-200 transition-all duration-200"
             >
               {copied === 'prompt' ? (
                 <>
@@ -118,7 +118,7 @@ export function ResultDisplay({ quote, imagePrompt, onRegenerate }: ResultDispla
         <div className="text-center">
           <button
             onClick={onRegenerate}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
+            className="tag inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/80 backdrop-blur-sm hover:bg-slate-100 text-slate-600 hover:text-slate-800 transition-all duration-200 shadow-sm border border-slate-200/50"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />

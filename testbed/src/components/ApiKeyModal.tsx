@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 interface ApiKeyModalProps {
   isOpen: boolean;
@@ -15,11 +15,11 @@ export function ApiKeyModal({
   onClose,
   onSave,
 }: ApiKeyModalProps) {
-  const [keyInput, setKeyInput] = React.useState(apiKey);
-  const [baseInput, setBaseInput] = React.useState(apiBase);
-  const [showKey, setShowKey] = React.useState(false);
+  const [keyInput, setKeyInput] = useState(apiKey);
+  const [baseInput, setBaseInput] = useState(apiBase);
+  const [showKey, setShowKey] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setKeyInput(apiKey);
     setBaseInput(apiBase);
   }, [apiKey, apiBase]);
@@ -40,10 +40,10 @@ export function ApiKeyModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
       onClick={handleOverlayClick}
     >
-      <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl transform transition-all animate-fade-in">
+      <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl transform transition-all animate-slide-up">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-800">API 设置</h3>
           <button
@@ -77,12 +77,12 @@ export function ApiKeyModal({
                 value={keyInput}
                 onChange={(e) => setKeyInput(e.target.value)}
                 placeholder="sk-..."
-                className="w-full px-4 py-3 pr-12 border border-slate-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition-all bg-slate-50"
+                className="w-full px-4 py-3 pr-12 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-slate-50"
               />
               <button
                 type="button"
                 onClick={() => setShowKey(!showKey)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 transition-colors"
               >
                 {showKey ? (
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,7 +107,7 @@ export function ApiKeyModal({
               value={baseInput}
               onChange={(e) => setBaseInput(e.target.value)}
               placeholder="https://api.deepseek.com/v1"
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition-all bg-slate-50"
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-slate-50"
             />
           </div>
 
@@ -121,7 +121,7 @@ export function ApiKeyModal({
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-500 to-purple-600 text-white font-medium hover:opacity-90 transition-opacity"
+              className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium hover:opacity-90 transition-opacity shadow-lg shadow-indigo-500/30"
             >
               保存
             </button>
