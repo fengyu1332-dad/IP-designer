@@ -39,7 +39,7 @@ function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [currentParams, setCurrentParams] = useState<GenerationParams | null>(null);
 
-  const { isLoading, error, quote, imagePrompt, generate } = useLLM();
+  const { isLoading, error, quote, imagePrompt, imagePromptCn, generate } = useLLM();
   const [showApiKeyModal, setShowApiKeyModal] = useState(!apiKey);
   const { toasts, addToast, removeToast } = useToast();
 
@@ -75,16 +75,16 @@ function App() {
   };
 
   useEffect(() => {
-    if (quote && imagePrompt && currentParams) {
-      const newItem = createHistoryItem(currentParams, quote, imagePrompt);
+    if (quote && imagePrompt && imagePromptCn && currentParams) {
+      const newItem = createHistoryItem(currentParams, quote, imagePrompt, imagePromptCn);
       setHistory((prev) => [newItem, ...prev].slice(0, 50));
     }
-  }, [quote, imagePrompt]);
+  }, [quote, imagePrompt, imagePromptCn]);
 
   const handleShare = async () => {
-    if (!quote || !imagePrompt) return;
+    if (!quote || !imagePrompt || !imagePromptCn) return;
     
-    const shareText = `📝 ${quote}\n\n🎨 AI Prompt:\n${imagePrompt}\n\n—— 由 IP Designer 生成`;
+    const shareText = `📝 ${quote}\n\n🎨 英文 Prompt:\n${imagePrompt}\n\n🎨 中文 Prompt:\n${imagePromptCn}\n\n—— 由 IP Designer 生成`;
     
     try {
       await navigator.clipboard.writeText(shareText);
@@ -156,6 +156,7 @@ function App() {
         <ResultDisplay
           quote={quote}
           imagePrompt={imagePrompt}
+          imagePromptCn={imagePromptCn}
           onRegenerate={handleGenerate}
           onShare={handleShare}
         />

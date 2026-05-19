@@ -15,7 +15,8 @@ export interface LLMResponse {
   success: boolean;
   data?: {
     quote: string;
-    image_prompt: string;
+    imagePrompt: string;
+    imagePromptCn: string;
   };
   error?: string;
 }
@@ -41,7 +42,7 @@ export function buildSystemPrompt(params: {
 你是一个顶级的社交媒体内容总监与 AI 视觉提示词（Prompt）专家。
 
 # Objective
-根据用户提供的环境参数和特定主题，创作一句极具共情力、适合作为配图文字的中文金句，并配套生成一段极其专业、细节丰富的英文 AI 绘图 Prompt。
+根据用户提供的环境参数和特定主题，创作一句极具共情力、适合作为配图文字的中文金句，并配套生成两个版本的专业 AI 绘图 Prompt（英文 + 中文）。
 
 # Input Parameters
 - 日期/节气：${params.date}
@@ -55,14 +56,20 @@ export function buildSystemPrompt(params: {
 2. 撰写中文金句：字数限制在 15-30 字。风格需深刻、克制、真实。如果是专业信念，需体现契约精神；如果是硬核爱好或教育规划，需体现探索与严谨；如果是人文关怀，需体现科技与人性的温度。
 3. 构建英文 Prompt：
    - 必须使用英文
-   - 结构需包含：主体描述（极度具体）、背景环境，光影设置（如 Cinematic lighting, volumetric light）、摄影机视角（如 50mm lens, depth of field）、画面风格（如 photorealistic, documentary style, minimalist）
-   - 避免直接将中文金句翻译成英文，而是要描绘金句所传达的视觉意象
+   - 结构需包含：主体描述（极度具体）、背景环境、光影设置（如 Cinematic lighting, volumetric light）、摄影机视角（如 50mm lens, depth of field）、画面风格（如 photorealistic, documentary style, minimalist）
+   - 重要：将金句文字以优雅的排版方式融入到视觉画面中，作为图片的一部分展示，例如使用精心设计的文字排版、手写风格、雕刻效果等，让文字与画面完美融合
    - 结尾必须加上宽高比参数 --ar ${aspectRatio}
+4. 构建中文 Prompt：
+   - 必须使用中文
+   - 内容与英文 Prompt 一致，只是语言为中文
+   - 同样包含将金句文字融入画面的要求
+   - 结尾也加上宽高比参数 --ar ${aspectRatio}
 
 # Output Format (Strict JSON)
 {
   "quote": "生成的中文金句",
-  "image_prompt": "生成的英文绘图 Prompt（必须包含 --ar ${aspectRatio}）"
+  "imagePrompt": "生成的英文 AI 绘图 Prompt（必须包含金句文字排版融入画面的要求）",
+  "imagePromptCn": "生成的中文 AI 绘图 Prompt（必须包含金句文字排版融入画面的要求）"
 }`;
 }
 
@@ -140,7 +147,8 @@ export async function callLLM(
         success: true,
         data: {
           quote: parsed.quote || '',
-          image_prompt: parsed.image_prompt || '',
+          imagePrompt: parsed.imagePrompt || '',
+          imagePromptCn: parsed.imagePromptCn || '',
         },
       };
     } catch {

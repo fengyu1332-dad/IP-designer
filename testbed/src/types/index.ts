@@ -2,6 +2,7 @@ export interface HistoryItem {
   id: string;
   quote: string;
   imagePrompt: string;
+  imagePromptCn: string;
   weather: string;
   mood: string;
   primaryTheme: string;
@@ -20,12 +21,16 @@ export interface GenerationParams {
 export function createHistoryItem(
   params: GenerationParams,
   quote: string,
-  imagePrompt: string
+  imagePrompt: string,
+  imagePromptCn: string
 ): HistoryItem {
+  const randomStr = Math.random().toString(36).substring(2, 11);
+  const id = Date.now().toString() + '-' + randomStr;
   return {
-    id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    id,
     quote,
     imagePrompt,
+    imagePromptCn,
     weather: params.weather,
     mood: params.mood,
     primaryTheme: params.primaryTheme,
@@ -42,13 +47,19 @@ export function formatTimestamp(timestamp: number): string {
   const diffHours = Math.floor(diffMs / 3600000);
   const diffDays = Math.floor(diffMs / 86400000);
 
-  if (diffMins < 1) return '刚刚';
-  if (diffMins < 60) return `${diffMins} 分钟前`;
-  if (diffHours < 24) return `${diffHours} 小时前`;
-  if (diffDays < 7) return `${diffDays} 天前`;
+  if (diffMins < 1) {
+    return '刚刚';
+  }
+  if (diffMins < 60) {
+    return diffMins + ' 分钟前';
+  }
+  if (diffHours < 24) {
+    return diffHours + ' 小时前';
+  }
+  if (diffDays < 7) {
+    return diffDays + ' 天前';
+  }
   
-  return date.toLocaleDateString('zh-CN', {
-    month: 'short',
-    day: 'numeric',
-  });
+  const options: any = { month: 'short', day: 'numeric' };
+  return date.toLocaleDateString('zh-CN', options);
 }

@@ -6,6 +6,7 @@ export interface UseLLMState {
   error: string | null;
   quote: string | null;
   imagePrompt: string | null;
+  imagePromptCn: string | null;
 }
 
 export interface UseLLMResult extends UseLLMState {
@@ -27,6 +28,7 @@ export function useLLM(): UseLLMResult {
   const [error, setError] = useState<string | null>(null);
   const [quote, setQuote] = useState<string | null>(null);
   const [imagePrompt, setImagePrompt] = useState<string | null>(null);
+  const [imagePromptCn, setImagePromptCn] = useState<string | null>(null);
 
   const generate = useCallback(async (params: {
     date: string;
@@ -50,7 +52,8 @@ export function useLLM(): UseLLMResult {
 
       if (result.success && result.data) {
         setQuote(result.data.quote);
-        setImagePrompt(result.data.image_prompt);
+        setImagePrompt(result.data.imagePrompt);
+        setImagePromptCn(result.data.imagePromptCn);
       } else {
         setError(result.error || 'Unknown error');
       }
@@ -67,6 +70,7 @@ export function useLLM(): UseLLMResult {
     setError(null);
     setQuote(null);
     setImagePrompt(null);
+    setImagePromptCn(null);
   }, []);
 
   return {
@@ -74,6 +78,7 @@ export function useLLM(): UseLLMResult {
     error,
     quote,
     imagePrompt,
+    imagePromptCn,
     generate,
     reset,
   };

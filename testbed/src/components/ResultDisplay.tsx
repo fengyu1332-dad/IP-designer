@@ -3,6 +3,7 @@ import { useState } from 'react';
 interface ResultDisplayProps {
   quote: string | null;
   imagePrompt: string | null;
+  imagePromptCn: string | null;
   onRegenerate: () => void;
   onShare: () => void;
 }
@@ -17,8 +18,8 @@ async function copyToClipboard(text: string) {
   }
 }
 
-export function ResultDisplay({ quote, imagePrompt, onRegenerate, onShare }: ResultDisplayProps) {
-  const [copied, setCopied] = useState<'quote' | 'prompt' | null>(null);
+export function ResultDisplay({ quote, imagePrompt, imagePromptCn, onRegenerate, onShare }: ResultDisplayProps) {
+  const [copied, setCopied] = useState<'quote' | 'prompt' | 'promptCn' | null>(null);
 
   const handleCopyQuote = async () => {
     if (!quote) return;
@@ -34,6 +35,15 @@ export function ResultDisplay({ quote, imagePrompt, onRegenerate, onShare }: Res
     const success = await copyToClipboard(imagePrompt);
     if (success) {
       setCopied('prompt');
+      setTimeout(() => setCopied(null), 2000);
+    }
+  };
+
+  const handleCopyPromptCn = async () => {
+    if (!imagePromptCn) return;
+    const success = await copyToClipboard(imagePromptCn);
+    if (success) {
+      setCopied('promptCn');
       setTimeout(() => setCopied(null), 2000);
     }
   };
@@ -98,7 +108,7 @@ export function ResultDisplay({ quote, imagePrompt, onRegenerate, onShare }: Res
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm font-medium text-slate-400">🎨 AI Prompt</span>
+                <span className="text-sm font-medium text-slate-400">🎨 英文 Prompt</span>
               </div>
             </div>
             <button
@@ -126,6 +136,41 @@ export function ResultDisplay({ quote, imagePrompt, onRegenerate, onShare }: Res
             {imagePrompt}
           </pre>
         </div>
+
+        {imagePromptCn && (
+          <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-900 rounded-2xl p-6 shadow-xl shadow-indigo-900/20">
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm font-medium text-slate-300">🎨 中文 Prompt</span>
+                </div>
+              </div>
+              <button
+                onClick={handleCopyPromptCn}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-indigo-600 text-sm text-slate-200 transition-all duration-200"
+              >
+                {copied === 'promptCn' ? (
+                  <>
+                    <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    已复制
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    复制
+                  </>
+                )}
+              </button>
+            </div>
+            <pre className="text-sm text-amber-200 font-mono leading-relaxed whitespace-pre-wrap break-all">
+              {imagePromptCn}
+            </pre>
+          </div>
+        )}
 
         <div className="text-center">
           <button
