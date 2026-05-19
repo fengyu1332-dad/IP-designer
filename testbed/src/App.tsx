@@ -23,10 +23,10 @@ function App() {
   const [apiBase, setApiBase] = useLocalStorage<string>('ip-designer-api-base', 'https://api.deepseek.com/v1');
   const [date] = useState<string>(getCurrentDate());
 
-  const [weather, setWeather] = useState<string | null>(null);
-  const [mood, setMood] = useState<string | null>(null);
-  const [primaryTheme, setPrimaryTheme] = useState<string | null>(null);
-  const [secondaryTheme, setSecondaryTheme] = useState<string | null>(null);
+  const [weather, setWeather] = useLocalStorage<string | null>('ip-designer-weather', null);
+  const [mood, setMood] = useLocalStorage<string | null>('ip-designer-mood', null);
+  const [primaryTheme, setPrimaryTheme] = useLocalStorage<string | null>('ip-designer-primary-theme', null);
+  const [secondaryTheme, setSecondaryTheme] = useLocalStorage<string | null>('ip-designer-secondary-theme', null);
 
   const { isLoading, error, quote, imagePrompt, generate } = useLLM();
   const [showApiKeyModal, setShowApiKeyModal] = useState(!apiKey);

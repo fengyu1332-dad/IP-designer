@@ -28,7 +28,13 @@ export const DEFAULT_LLM_OPTIONS: LLMOptions = {
   apiBase: 'https://api.deepseek.com/v1',
 };
 
-export function buildSystemPrompt(): string {
+export function buildSystemPrompt(params: {
+  date: string;
+  weather: string;
+  mood: string;
+  primaryTheme: string;
+  secondaryTheme: string;
+}): string {
   return `# Role
 你是一个顶级的社交媒体内容总监与 AI 视觉提示词（Prompt）专家。
 
@@ -36,10 +42,10 @@ export function buildSystemPrompt(): string {
 根据用户提供的环境参数和特定主题，创作一句极具共情力、适合作为配图文字的中文金句，并配套生成一段极其专业、细节丰富的英文 AI 绘图 Prompt。
 
 # Input Parameters
-- 日期/节气：{Date}
-- 天气/光影：{Weather}
-- 当前情绪：{Mood}
-- 核心主题：{Category} -> {Sub-option}
+- 日期/节气：${params.date}
+- 天气/光影：${params.weather}
+- 当前情绪：${params.mood}
+- 核心主题：${params.primaryTheme} -> ${params.secondaryTheme}
 
 # Workflow
 1. 分析输入参数，寻找环境、情绪与核心主题之间的内在联系与张力。

@@ -40,7 +40,7 @@ export function useLLM(): UseLLMResult {
     setError(null);
 
     try {
-      const systemPrompt = buildSystemPrompt();
+      const systemPrompt = buildSystemPrompt(params);
       const userPrompt = buildUserPrompt(params);
       const messages = buildMessages(systemPrompt, userPrompt);
 
