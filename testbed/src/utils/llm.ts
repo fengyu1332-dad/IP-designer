@@ -21,11 +21,11 @@ export interface LLMResponse {
 }
 
 export const DEFAULT_LLM_OPTIONS: LLMOptions = {
-  model: 'gpt-4o-mini',
+  model: 'deepseek-v4-flash',
   temperature: 0.7,
   maxTokens: 2048,
   stream: false,
-  apiBase: 'https://api.openai.com/v1',
+  apiBase: 'https://api.deepseek.com/v1',
 };
 
 export function buildSystemPrompt(): string {

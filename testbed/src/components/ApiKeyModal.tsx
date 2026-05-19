@@ -106,7 +106,7 @@ export function ApiKeyModal({
               type="text"
               value={baseInput}
               onChange={(e) => setBaseInput(e.target.value)}
-              placeholder="https://api.openai.com/v1"
+              placeholder="https://api.deepseek.com/v1"
               className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition-all bg-slate-50"
             />
           </div>

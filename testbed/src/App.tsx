@@ -20,7 +20,7 @@ function getCurrentDate() {
 
 function App() {
   const [apiKey, setApiKey] = useLocalStorage<string>('ip-designer-api-key', '');
-  const [apiBase, setApiBase] = useLocalStorage<string>('ip-designer-api-base', 'https://api.openai.com/v1');
+  const [apiBase, setApiBase] = useLocalStorage<string>('ip-designer-api-base', 'https://api.deepseek.com/v1');
   const [date] = useState<string>(getCurrentDate());
 
   const [weather, setWeather] = useState<string | null>(null);
