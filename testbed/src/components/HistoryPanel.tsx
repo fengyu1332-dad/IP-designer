@@ -3,6 +3,19 @@ import type { HistoryItem } from '../types';
 import { formatTimestamp } from '../types';
 import { Analytics } from './Analytics';
 
+const styleLabels: Record<string, string> = {
+  photorealistic: '写实摄影',
+  illustration: '插画风格',
+  watercolor: '水彩水墨',
+  minimalist: '极简美学',
+  cinematic: '电影质感',
+  vintage: '复古怀旧',
+};
+
+function getStyleLabel(style: string): string {
+  return styleLabels[style] || style;
+}
+
 interface HistoryPanelProps {
   isOpen: boolean;
   history: HistoryItem[];
@@ -84,6 +97,9 @@ export function HistoryPanel({ isOpen, history, onClose, onSelect, onDelete, onC
                         <div className="flex items-center gap-2 mb-2">
                           <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-600">
                             {item.primaryTheme}
+                          </span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-600">
+                            {getStyleLabel(item.imageStyle)}
                           </span>
                           <span className="text-xs text-slate-400">
                             {formatTimestamp(item.timestamp)}

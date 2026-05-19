@@ -16,6 +16,7 @@ export interface UseLLMResult extends UseLLMState {
     mood: string;
     primaryTheme: string;
     secondaryTheme: string;
+    imageStyle: string;
     apiKey: string;
     apiBase?: string;
     aspectRatio?: string;
@@ -36,6 +37,7 @@ export function useLLM(): UseLLMResult {
     mood: string;
     primaryTheme: string;
     secondaryTheme: string;
+    imageStyle: string;
     apiKey: string;
     apiBase?: string;
     aspectRatio?: string;

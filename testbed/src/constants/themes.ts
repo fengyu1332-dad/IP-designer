@@ -28,6 +28,15 @@ export const MOOD_OPTIONS: ThemeOption[] = [
   { value: '松弛感', label: '🌿 松弛感' },
 ];
 
+export const IMAGE_STYLE_OPTIONS: ThemeOption[] = [
+  { value: 'photorealistic', label: '📸 写实摄影' },
+  { value: 'illustration', label: '🎨 插画风格' },
+  { value: 'watercolor', label: '🖌️ 水彩水墨' },
+  { value: 'minimalist', label: '✨ 极简美学' },
+  { value: 'cinematic', label: '🎬 电影质感' },
+  { value: 'vintage', label: '📻 复古怀旧' },
+];
+
 export const THEME_CATEGORIES: ThemeCategory[] = [
   {
     id: 'career-belief',

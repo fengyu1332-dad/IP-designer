@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { EnvironmentSelector } from './components/EnvironmentSelector';
 import { ThemeSelector } from './components/ThemeSelector';
+import { ImageStyleSelector } from './components/ImageStyleSelector';
 import { GenerateButton } from './components/GenerateButton';
 import { ResultDisplay } from './components/ResultDisplay';
 import { ApiKeyModal } from './components/ApiKeyModal';
@@ -34,6 +35,7 @@ function App() {
   const [mood, setMood] = useLocalStorage<string | null>('ip-designer-mood', null);
   const [primaryTheme, setPrimaryTheme] = useLocalStorage<string | null>('ip-designer-primary-theme', null);
   const [secondaryTheme, setSecondaryTheme] = useLocalStorage<string | null>('ip-designer-secondary-theme', null);
+  const [imageStyle, setImageStyle] = useLocalStorage<string | null>('ip-designer-image-style', null);
 
   const [history, setHistory] = useLocalStorage<HistoryItem[]>('ip-designer-history', []);
   const [showHistory, setShowHistory] = useState(false);
@@ -49,7 +51,7 @@ function App() {
       return;
     }
 
-    if (!weather || !mood || !primaryTheme || !secondaryTheme) {
+    if (!weather || !mood || !primaryTheme || !secondaryTheme || !imageStyle) {
       return;
     }
 
@@ -59,6 +61,7 @@ function App() {
       mood,
       primaryTheme,
       secondaryTheme,
+      imageStyle,
     };
     setCurrentParams(params);
 
@@ -68,6 +71,7 @@ function App() {
       mood,
       primaryTheme,
       secondaryTheme,
+      imageStyle,
       apiKey,
       apiBase,
       aspectRatio,
@@ -104,6 +108,7 @@ function App() {
     setMood(item.mood);
     setPrimaryTheme(item.primaryTheme);
     setSecondaryTheme(item.secondaryTheme);
+    setImageStyle(item.imageStyle);
     setShowHistory(false);
     addToast('已加载历史记录', 'info');
   };
@@ -118,7 +123,7 @@ function App() {
     addToast('历史记录已清空', 'info');
   };
 
-  const isGenerateDisabled = !weather || !mood || !primaryTheme || !secondaryTheme;
+  const isGenerateDisabled = !weather || !mood || !primaryTheme || !secondaryTheme || !imageStyle;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
@@ -141,6 +146,11 @@ function App() {
           secondaryTheme={secondaryTheme}
           onPrimaryThemeChange={setPrimaryTheme}
           onSecondaryThemeChange={setSecondaryTheme}
+        />
+
+        <ImageStyleSelector
+          imageStyle={imageStyle}
+          onChange={setImageStyle}
         />
 
         <div className="mb-8 flex justify-center">

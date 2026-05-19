@@ -35,9 +35,22 @@ export function buildSystemPrompt(params: {
   mood: string;
   primaryTheme: string;
   secondaryTheme: string;
+  imageStyle: string;
   aspectRatio?: string;
 }): string {
   const aspectRatio = params.aspectRatio || '3:4';
+  
+  const styleMapping: Record<string, string> = {
+    photorealistic: '写实摄影风格，超高清，细节丰富，真实感强',
+    illustration: '插画风格，手绘质感，色彩鲜艳，富有艺术感',
+    watercolor: '水彩水墨画风格，淡雅清新，笔触明显，意境悠远',
+    minimalist: '极简美学风格，大量留白，简洁构图，高级感',
+    cinematic: '电影质感风格，戏剧性光影，宽银幕效果，氛围感强',
+    vintage: '复古怀旧风格，胶片质感，暖色调，年代感',
+  };
+  
+  const styleDesc = styleMapping[params.imageStyle] || params.imageStyle;
+  
   return `# Role
 你是一个顶级的社交媒体内容总监与 AI 视觉提示词（Prompt）专家。
 
@@ -49,6 +62,7 @@ export function buildSystemPrompt(params: {
 - 天气/光影：${params.weather}
 - 当前情绪：${params.mood}
 - 核心主题：${params.primaryTheme} -> ${params.secondaryTheme}
+- 图片风格：${styleDesc}
 - 画面宽高比：${aspectRatio}
 
 # Workflow
@@ -56,7 +70,7 @@ export function buildSystemPrompt(params: {
 2. 撰写中文金句：字数限制在 15-30 字。风格需深刻、克制、真实。如果是专业信念，需体现契约精神；如果是硬核爱好或教育规划，需体现探索与严谨；如果是人文关怀，需体现科技与人性的温度。
 3. 构建英文 Prompt：
    - 必须使用英文
-   - 结构需包含：主体描述（极度具体）、背景环境、光影设置（如 Cinematic lighting, volumetric light）、摄影机视角（如 50mm lens, depth of field）、画面风格（如 photorealistic, documentary style, minimalist）
+   - 结构需包含：主体描述（极度具体）、背景环境、光影设置（如 Cinematic lighting, volumetric light）、摄影机视角（如 50mm lens, depth of field）、画面风格（${params.imageStyle}）
    - 重要：将金句文字以优雅的排版方式融入到视觉画面中，作为图片的一部分展示，例如使用精心设计的文字排版、手写风格、雕刻效果等，让文字与画面完美融合
    - 结尾必须加上宽高比参数 --ar ${aspectRatio}
 4. 构建中文 Prompt：

@@ -7,6 +7,7 @@ export interface HistoryItem {
   mood: string;
   primaryTheme: string;
   secondaryTheme: string;
+  imageStyle: string;
   timestamp: number;
 }
 
@@ -16,6 +17,7 @@ export interface GenerationParams {
   mood: string;
   primaryTheme: string;
   secondaryTheme: string;
+  imageStyle: string;
 }
 
 export function createHistoryItem(
@@ -35,6 +37,7 @@ export function createHistoryItem(
     mood: params.mood,
     primaryTheme: params.primaryTheme,
     secondaryTheme: params.secondaryTheme,
+    imageStyle: params.imageStyle,
     timestamp: Date.now(),
   };
 }
