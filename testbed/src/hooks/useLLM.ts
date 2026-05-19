@@ -1,13 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import {
-  LLMMessage,
-  LLMOptions,
-  LLMResponse,
-  DEFAULT_LLM_OPTIONS,
-  buildSystemPrompt,
-  buildMessages,
-  callLLM,
-} from '../utils/llm';
+import { useState, useCallback } from 'react';
+import { callLLM, buildSystemPrompt, buildUserPrompt, buildMessages } from '../utils/llm';
 
 export interface UseLLMState {
   isLoading: boolean;
@@ -52,11 +44,7 @@ export function useLLM(): UseLLMResult {
       const userPrompt = buildUserPrompt(params);
       const messages = buildMessages(systemPrompt, userPrompt);
 
-      const options: LLMOptions = {
-        apiBase: params.apiBase,
-      };
-
-      const result = await callLLM(params.apiKey, messages, options);
+      const result = await callLLM(params.apiKey, messages, { apiBase: params.apiBase });
 
       if (result.success && result.data) {
         setQuote(result.data.quote);
